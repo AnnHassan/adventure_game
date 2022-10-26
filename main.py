@@ -12,23 +12,22 @@ GAME_IS_ON = True
 objects = ["Rock", "Sword", "Peanut butter and jelly sandwich"]
 
 
+def valid_input(prompt, options):
+    while True:
+        option = input(prompt).lower()
+        if option in options:
+            return option
+        print_pause(f"The option {option} is invalid. Try again")
+
+
 def play_again():
-    play_again = input("Enter 1 to play again. Enter 2 to exit.")
+    play_again = valid_input("Enter 1 to play again or 2 to exit.", ["1", "2"])
     if play_again == "1":
         GAME_IS_ON = True
         play_game()
     elif play_again == "2":
         print("Goodbye")
         GAME_IS_ON = False
-    else:
-        while play_again != "1" and play_again != "2":
-            try_again = input("Invalid. Please enter 1 or 2 only")
-            if try_again == "1" or play_again == "1":
-                play_game()
-            elif try_again == "2" or play_again == "2":
-                print("Goodbye")
-                GAME_IS_ON = False
-                break
 
 
 def print_pause(instructions):
@@ -51,18 +50,11 @@ def tko_shrek():
 def knock_door():
     print("Shrek opens the door and screams in your face!!")
     time.sleep(1)
-    choice_2 = input("Enter 1 to run away. Enter 2 to punch him in the face")
+    choice_2 = valid_input("Enter 1 to run away Or 2 to punch him", ["1", "2"])
     if choice_2 == "1":
         run_away()
     elif choice_2 == "2":
         tko_shrek()
-    else:
-        while choice_2 != "1" and choice_2 != "2":
-            try_again = input("Invalid. Please enter 1 or 2 only")
-            if try_again == "1" or choice_2 == "1":
-                run_away()
-            elif try_again == "2" or choice_2 == "2":
-                tko_shrek()
 
 
 def pick_object():
@@ -75,7 +67,7 @@ def pick_object():
 def enter_cave():
     print("It's very cold and dark here\nYou can't see where you are stepping")
     time.sleep(0.5)
-    choice_3 = input("Enter 1 to go to the house\nEnter 2 to pick an object")
+    choice_3 = valid_input("Press 1knock on house or 2pick object", ["1", "2"])
     if choice_3 == "1":
         print_pause("Excellent choice.\nLet's go see who's in the house.")
         knock_door()
@@ -83,13 +75,6 @@ def enter_cave():
         pick_object()
         GAME_IS_ON = False
         play_again()
-    else:
-        while choice_3 != "1" and choice_3 != "2":
-            try_again = input("Invalid. Please enter 1 or 2 only")
-            if try_again == "1" or choice_3 == "1":
-                knock_door()
-            elif try_again == "2" or choice_3 == "2":
-                pick_object()
 
 
 def play_game():
@@ -97,18 +82,11 @@ def play_game():
     print_pause("Rumor has it that a wicked fairy is somewhere around here,")
     print_pause("..and has been terrifying the nearby village...")
     print("What would you do?")
-    choice_1 = input("Enter 1 to knock on a house\nEnter 2 to go in the cave")
+    choice_1 = valid_input("Options: 1 knock on door,2 go in cave", ["1", "2"])
     if choice_1 == "1":
         knock_door()
     elif choice_1 == "2":
         enter_cave()
-    else:
-        while choice_1 != "1" and choice_1 != "2":
-            try_again = input("Invalid. Please enter 1 or 2 only")
-            if try_again == "1" or choice_1 == "1":
-                knock_door()
-            elif try_again == "2" or choice_1 == "2":
-                enter_cave()
 
 
 while GAME_IS_ON:
